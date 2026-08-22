@@ -1,0 +1,52 @@
+[project]
+name = "py-setup"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+py-setup = "py_setup:main"
+
+[build-system]
+requires = ["uv_build>=0.12.1,<0.13.0"]
+build-backend = "uv_build"
+
+
+[tool.ruff]
+target-version ="py313"
+line-length = 88
+
+[tool.ruff.lint]
+extend-select = [
+  "I",   # isort (automatically sorts import statements)
+  "UP",  # pyupgrade (modernizes old Python syntax)
+  "B",   # flake8-bugbear (catches subtle runtime bugs)
+  "C4",  # flake8-comprehensions (helps write better list/dict comprehensions)
+  "D",   # pydocstyle (enforces docstring conventions)
+]
+# Disable conflicting rules and annoying missing docstring warnings
+ignore = [
+  "E501", # Line-length (handled automatically by `ruff format`)
+  "D203", # Conflicts with D211 (incorrect blank line before class)
+  "D213", # Conflicts with D212 (multi-line summary second line)
+  "D100", # Missing docstring in public module (too noisy for small scripts)
+  "D104", # Missing docstring in public package (silences empty __init__.py errors)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.6.2",
+    "ruff>=0.16.2",
+]
