@@ -1,0 +1,32 @@
+# --- Git & CI ---
+.git/
+.gitignore
+.github/
+
+# --- Virtual Environments & Local Caches ---
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# --- Documentation & Specs ---
+*.md
+docs/
+
+# --- IDE & Local Settings ---
+.vscode/
+.idea/
+*.swp
+
+# --- Geodata & Preprocessed Graph Files ---
+# (Excludes heavy PBF/OSRM files from Docker build context)
+data/
+!data/.gitkeep
+
+# --- Docker & Compose Local Files ---
+docker-compose*.yml
