@@ -1,7 +1,5 @@
-import sys
-import os
 
-from app import create_app # type: ignore
+from app import create_app  # type: ignore
 
 app = create_app()
 
