@@ -23,10 +23,14 @@ def download_data(url: str, output_path: str) -> None:
 
     # Get the size of the file
     with urllib.request.urlopen(url) as response:
-        total_size = int(response.headers.get('content-length', 0))
+        total_size = int(response.headers.get("content-length", 0))
 
     # Combine the with statements
-    with urllib.request.urlopen(url) as link, target.open("wb") as out_file, tqdm(total=total_size, unit='B', unit_scale=True, unit_divisor=1024) as bar:
-        for data in iter(lambda: link.read(4096), b''):
+    with (
+        urllib.request.urlopen(url) as link,
+        target.open("wb") as out_file,
+        tqdm(total=total_size, unit="B", unit_scale=True, unit_divisor=1024) as bar,
+    ):
+        for data in iter(lambda: link.read(4096), b""):
             out_file.write(data)
             bar.update(len(data))
