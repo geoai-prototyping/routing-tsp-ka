@@ -1,0 +1,46 @@
+services:
+  # -------------------------------------------------------------
+  # 1. OSRM Data Pre-Processing Pipeline
+  # -------------------------------------------------------------
+  osrm-extract:
+    image: osrm/osrm-backend:latest
+    container_name: osrm-extract
+    volumes:
+      - ../../data/osrm:/data
+    command: osrm-extract -p /opt/car.lua /data/karlsruhe-regbez-latest.osm.pbf
+    profiles: ["init"]
+
+  osrm-partition:
+    image: osrm/osrm-backend:latest
+    container_name: osrm-partition
+    volumes:
+      - ../../data/osrm:/data
+    command: osrm-partition /data/karlsruhe-regbez-latest.osrm
+    depends_on:
+      osrm-extract:
+        condition: service_completed_successfully
+    profiles: ["init"]
+
+  osrm-customize:
+    image: osrm/osrm-backend:latest
+    container_name: osrm-customize
+    volumes:
+      - ../../data/osrm:/data
+    command: osrm-customize /data/karlsruhe-regbez-latest.osrm
+    depends_on:
+      osrm-partition:
+        condition: service_completed_successfully
+    profiles: ["init"]
+
+  # -------------------------------------------------------------
+  # 2. OSRM Routing Server (Port 6000)
+  # -------------------------------------------------------------
+  osrm-routing:
+    image: osrm/osrm-backend:latest
+    container_name: osrm-routing
+    restart: unless-stopped
+    ports:
+      - "6000:6000"
+    volumes:
+      - ../../data/osrm:/data
+    command: osrm-routed --algorithm mld --port 6000 /data/karlsruhe-regbez-latest.osrm
