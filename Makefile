@@ -9,9 +9,6 @@ up:
 init:
 	docker compose -f $(COMPOSE_FILE) --profile init up
 
-chmod:
-	sudo chmod -R 777 data/osrm/
-
 single-route:
 	curl -s "http://localhost:$(PORT)/route/v1/driving/8.48608,49.00838;8.49108,49.00338?overview=false"
 
