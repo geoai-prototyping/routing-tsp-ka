@@ -4,6 +4,7 @@ import pandas as pd
 
 class OSMHandler(osmium.SimpleHandler):
     """Process OSM data."""
+
     def __init__(self):
         """Initialise Handler."""
         super().__init__()
@@ -17,7 +18,7 @@ class OSMHandler(osmium.SimpleHandler):
             self.restaurants.append(tags)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print("Finding restaurants.")
     handler = OSMHandler()
     handler.apply_file("./data/raw/karlsruhe-regbez-latest.osm.pbf")

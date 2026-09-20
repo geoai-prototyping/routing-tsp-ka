@@ -12,7 +12,9 @@ coordinates = [
 coord_str = ";".join([f"{lon},{lat}" for lon, lat in coordinates])
 
 # 2. Call OSRM Table API
-url = f"http://localhost:6000/table/v1/driving/{coord_str}?annotations=distance,duration"
+url = (
+    f"http://localhost:6000/table/v1/driving/{coord_str}?annotations=distance,duration"
+)
 response = requests.get(url).json()
 
 # 3. Extract matrices
