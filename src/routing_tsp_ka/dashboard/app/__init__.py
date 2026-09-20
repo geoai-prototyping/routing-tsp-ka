@@ -4,7 +4,7 @@ from .config import Config
 
 
 def create_app() -> Flask:
-    """ "Creates the app used in the dashboard.
+    """Creates the app used in the dashboard.
 
     Returns the application generated from the templates and the config.
     """
