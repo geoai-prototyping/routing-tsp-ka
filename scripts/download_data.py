@@ -17,6 +17,5 @@ def main() -> None:
     #download_data(url=LGLKALK_URL, output_path=LGLKALK_OUTPUT)
 
 
-
 if __name__ == "__main__":
     main()
